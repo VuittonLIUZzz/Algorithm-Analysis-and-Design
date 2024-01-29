@@ -1,0 +1,74 @@
+#include<stdio.h>
+int max_of_three(int a, int b, int c) {
+	int max_value;
+
+	// 比较并直接赋值
+	if (a >= b && a >= c) {
+		max_value = a;
+	}
+	else if (b >= a && b >= c) {
+		max_value = b;
+	}
+	else {
+		max_value = c; // 当c是最大的时候
+	}
+
+	return max_value;
+}
+static int maxsubsum(const int A[], int left, int right)
+{
+	int max_of_three(int a, int b, int c);
+	int Max_leftsum, Max_rightsum;
+	int Max_leftbordersum, Max_rightbordersum;
+	int leftbordersum, rightbordersum;
+	int center, i;
+
+	if (left == right)
+	{
+		if (A[left] > 0)
+			return A[left];
+		else
+			return 0;
+	}
+	center = (left + right) / 2;
+	Max_leftsum = maxsubsum(A, left, center);
+	Max_rightsum = maxsubsum(A, center + 1, right);
+	Max_leftbordersum = 0; leftbordersum = 0;
+	for (i = center; i >= left; i--)
+	{
+		leftbordersum += A[i];
+		if (leftbordersum > Max_leftbordersum)
+		{
+			Max_leftbordersum = leftbordersum;
+		}
+	}
+	Max_rightbordersum = 0; rightbordersum = 0;
+	for (i = center + 1; i <= right; i++)
+	{
+		rightbordersum += A[i];
+		if (rightbordersum > Max_rightbordersum)
+		{
+			Max_rightbordersum = rightbordersum;
+		}
+
+	}
+	return max_of_three(Max_leftsum, Max_rightsum, Max_leftbordersum + Max_rightbordersum);
+}
+
+int maxsubsequence(const int A[], int n)
+{
+	return maxsubsum(A, 0, n - 1);
+}
+
+int main()
+{
+	const int A[] = { 4, -3, 5, -2, -1, 2, 6, -2 };
+	int n = sizeof(A) / sizeof(A[0]);
+
+	// 调用 maxsubsequence 函数并存储结果
+	int max_sum = maxsubsequence(A, n);
+
+	printf("The maximum subsequence sum is: %d\n", max_sum);
+
+	return 0;
+}
