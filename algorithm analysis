@@ -72,3 +72,43 @@ int main()
 
 	return 0;
 }
+
+/*maxsubsum(A, left, center) 计算的是数组 A 从下标 left 到下标 center 的最大子序列和，即左边部分的最大子序列和。
+
+同理，maxsubsum(A, center + 1, right) 计算的是从下标 center + 1 到下标 right 的最大子序列和，即右边部分的最大子序列和。
+
+Max_leftbordersum 是通过循环计算得到的，它代表了从分割点（中心点）center 向左遍历，直到下标 left 为止的连续递增元素之和的最大值。这可以用于找到可能跨越分割点的最大子序列。
+
+Max_rightbordersum 类似地，是从分割点（中心点）center + 1 向右遍历到下标 right 为止的连续递增元素之和的最大值*/
+
+
+int maxsubsequence(const int A[], int n)
+{
+	int thissum, maxsum, j;
+	thissum = maxsum = A[0];
+	for (j = 0; j < n; j++)
+	{
+		thissum += A[j];
+		if (thissum > maxsum)
+		{
+			maxsum = thissum;
+		}
+		else if (thissum<0)
+		{
+			thissum = 0;
+		}
+	}
+	return maxsum;
+}
+int main()
+{
+
+	const int A[] = { -7,-8,-9 - 10 };
+	int n = sizeof(A) / sizeof(int);
+	int a = maxsubsequence(A,n);
+	printf("%d\n", a);
+	return 0;
+}
+
+
+
